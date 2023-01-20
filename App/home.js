@@ -11,7 +11,7 @@ import {
 import storeBooks from './storeData.js';
 import libraryBooks from './libraryData.js';
 
-export default HomeScreen = ({ navigation }) => {
+export default Home = ({ navigation }) => {
   const Book = ({ title, image, author }) => (
     <TouchableOpacity
       onPress={() => {

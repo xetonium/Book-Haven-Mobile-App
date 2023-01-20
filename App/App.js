@@ -2,8 +2,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
 import { StyleSheet } from 'react-native';
-import HomeScreen from './home';
-import LibraryScreen from './library';
+import Login from './login';
+import Signup from './signup';
+import ForgotPassword from './forgotPassword';
+import Home from './home';
+import LibraryMain from './library';
 import StoreMain from './store';
 const Tab = createBottomTabNavigator();
 
@@ -13,13 +16,13 @@ export default App = () => {
       <Tab.Navigator>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={Home}
           options={{ tabBarIcon: homeIcon }}
         />
 
         <Tab.Screen
           name="Library"
-          component={LibraryScreen}
+          component={LibraryMain}
           options={{ tabBarIcon: bookIcon }}
         />
 

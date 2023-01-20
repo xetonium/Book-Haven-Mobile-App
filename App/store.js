@@ -10,6 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import books from './storeData.js';
+const searchIcon = require('./assets/search-icon.png');
 
 export default function StoreMain() {
   const Book = ({ title, image, author }) => (
@@ -30,7 +31,7 @@ export default function StoreMain() {
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>Store</Text>
       <View style={{ flexDirection: 'row' }}>
         <TextInput
@@ -43,10 +44,7 @@ export default function StoreMain() {
           onPress={() => {
             Alert.alert('Loading...');
           }}>
-          <Image
-            source={require('./assets/search-icon.png')}
-            style={styles.searchIcon}
-          />
+          <Image source={searchIcon} style={styles.searchIcon} />
         </TouchableOpacity>
       </View>
       <FlatList
@@ -66,7 +64,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5DC',
     paddingBottom: 50,
   },
-
   header: {
     fontWeight: 'bold',
     fontSize: 40,
@@ -75,7 +72,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     textAlign: 'center',
   },
-
   searchBar: {
     alignItems: 'center',
     backgroundColor: 'white',
@@ -90,13 +86,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 10,
   },
-
   searchIcon: {
     height: 35,
     width: 35,
     flexDirection: 'horizontal',
   },
-
   bookContainer: {
     marginBottom: 20,
     marginLeft: 10,
@@ -105,18 +99,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 5,
   },
-
   bookCover: {
     width: 150,
     height: 225,
   },
-
   bookTitle: {
     fontSize: 20,
     paddingLeft: 10,
     maxWidth: 200,
   },
-
   bookAuthor: {
     fontStyle: 'italic',
     fontSize: 16,
