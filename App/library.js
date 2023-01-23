@@ -2,13 +2,13 @@ import {
   Text,
   TextInput,
   View,
-  ScrollView,
   StyleSheet,
   FlatList,
   Image,
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import { ScrollView } from 'react-native-virtualized-view';
 import books from './libraryData';
 const searchIcon = require('./assets/search-icon.png');
 
@@ -30,29 +30,50 @@ export default LibraryMain = () => {
     </TouchableOpacity>
   );
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>Your Books</Text>
-      <View style={{ flexDirection: 'row' }}>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="search by title or author"
-          placeholderTextColor={'#807f80'}
-        />
-        <TouchableOpacity
-          onPress={() => {
-            Alert.alert('Loading...');
-          }}>
-          <Image source={searchIcon} style={styles.searchIcon} />
-        </TouchableOpacity>
-      </View>
+    // <ScrollView contentContainerStyle={styles.container}>
+    //   <Text style={styles.header}>Your Books</Text>
+    //   <View style={{ flexDirection: 'row' }}>
+    //     <TextInput
+    //       style={styles.searchBar}
+    //       placeholder="search by title or author"
+    //       placeholderTextColor={'#807f80'}
+    //     />
+    //     <TouchableOpacity
+    //       onPress={() => {
+    //         Alert.alert('Loading...');
+    //       }}>
+    //       <Image source={searchIcon} style={styles.searchIcon} />
+    //     </TouchableOpacity>
+    //   </View>
+    <View style={styles.container}>
       <FlatList
+      // contentContainerStyle={styles.container}
+      ListHeaderComponent={
+        <>
+        <Text style={styles.header}>Your Books</Text>
+        <View style={{ flexDirection: 'row' }}>
+          <TextInput
+            style={styles.searchBar}
+            placeholder="search by title or author"
+            placeholderTextColor={'#807f80'}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              Alert.alert('Loading...');
+            }}>
+            <Image source={searchIcon} style={styles.searchIcon} />
+          </TouchableOpacity>
+        </View>  
+        </>
+      }
         data={books}
         renderItem={({ item }) => (
           <Book title={item.title} image={item.image} author={item.author} />
         )}
         keyExtractor={(item) => item.id}
       />
-    </ScrollView>
+      </View>
+    // </ScrollView>
   );
 };
 
@@ -60,7 +81,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: '#F5F5DC',
-    paddingBottom: 50,
   },
   header: {
     fontWeight: 'bold',
@@ -87,7 +107,7 @@ const styles = StyleSheet.create({
   searchIcon: {
     height: 35,
     width: 35,
-    flexDirection: 'horizontal',
+    flexDirection: 'row',
   },
   bookContainer: {
     marginBottom: 20,
