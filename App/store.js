@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { ScrollView } from 'react-native-virtualized-view';
 import books from './storeData.js';
 const searchIcon = require('./assets/search-icon.png');
 
@@ -88,7 +87,6 @@ const styles = StyleSheet.create({
   header: {
     fontWeight: 'bold',
     fontSize: 40,
-    fontFamily: 'Trebuchet MS',
     paddingTop: 20,
     paddingBottom: 10,
     textAlign: 'center',
@@ -96,7 +94,6 @@ const styles = StyleSheet.create({
   searchBar: {
     alignItems: 'center',
     backgroundColor: 'white',
-    fontFamily: 'Trebuchet MS',
     fontWeight: 'bold',
     fontSize: 17,
     borderRadius: 5,

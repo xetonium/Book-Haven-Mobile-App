@@ -8,17 +8,21 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { ScrollView } from 'react-native-virtualized-view';
 import books from './libraryData';
 const searchIcon = require('./assets/search-icon.png');
 
-export default LibraryMain = () => {
+
+export default LibraryMain = ({ navigation }) => {
+  function handleBookPress(book) {
+    navigation.navigate('BookScreen', { book });
+  } //no navigator other than stack navigator in main file
+
   const Book = ({ title, image, author }) => (
     <TouchableOpacity
       style={styles.bookContainer}
-      onPress={() => {
-        Alert.alert(title, author);
-      }}>
+      onPress={() =>
+        handleBookPress({ title, image, author })
+      }>
       <Image source={{ uri: image }} style={styles.bookCover} />
       <Text style={styles.bookTitle}>
         {title}
@@ -45,34 +49,34 @@ export default LibraryMain = () => {
     //       <Image source={searchIcon} style={styles.searchIcon} />
     //     </TouchableOpacity>
     //   </View>
-    <View style={styles.container}>
+    <View style={styles.container}> 
       <FlatList
-      // contentContainerStyle={styles.container}
-      ListHeaderComponent={
-        <>
-        <Text style={styles.header}>Your Books</Text>
-        <View style={{ flexDirection: 'row' }}>
-          <TextInput
-            style={styles.searchBar}
-            placeholder="search by title or author"
-            placeholderTextColor={'#807f80'}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              Alert.alert('Loading...');
-            }}>
-            <Image source={searchIcon} style={styles.searchIcon} />
-          </TouchableOpacity>
-        </View>  
-        </>
-      }
+        // contentContainerStyle={styles.container}
+        ListHeaderComponent={
+          <>
+            <Text style={styles.header}>Your Books</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <TextInput
+                style={styles.searchBar}
+                placeholder="search by title or author"
+                placeholderTextColor={'#807f80'}
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  Alert.alert('Loading...');
+                }}>
+                <Image source={searchIcon} style={styles.searchIcon} />
+              </TouchableOpacity>
+            </View>
+          </>
+        }
         data={books}
         renderItem={({ item }) => (
           <Book title={item.title} image={item.image} author={item.author} />
         )}
         keyExtractor={(item) => item.id}
       />
-      </View>
+    </View> //warning virtualized list should never be nested inside plain scrollview with the same orientation but app works fine
     // </ScrollView>
   );
 };
@@ -85,7 +89,6 @@ const styles = StyleSheet.create({
   header: {
     fontWeight: 'bold',
     fontSize: 40,
-    fontFamily: 'Trebuchet MS',
     paddingTop: 20,
     paddingBottom: 10,
     textAlign: 'center',
@@ -93,7 +96,6 @@ const styles = StyleSheet.create({
   searchBar: {
     alignItems: 'center',
     backgroundColor: 'white',
-    fontFamily: 'Trebuchet MS',
     fontWeight: 'bold',
     fontSize: 17,
     borderRadius: 5,
