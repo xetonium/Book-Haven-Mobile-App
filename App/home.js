@@ -12,12 +12,11 @@ import storeBooks from './storeData.js';
 import libraryBooks from './libraryData.js';
 
 export default Home = ({ navigation }) => {
-  const Book = ({ title, image, author }) => (
+  const Book = ({ item }) => (
     <TouchableOpacity
-      onPress={() => {
-        Alert.alert(title, author);
-      }}>
-      <Image source={{ uri: image }} style={styles.book} />
+      onPress={() => navigation.navigate('Book', { item })
+      }>
+      <Image source={{ uri: item.image }} style={styles.book} />
     </TouchableOpacity>
   );
 
@@ -29,10 +28,11 @@ export default Home = ({ navigation }) => {
         <FlatList
           horizontal={true}
           data={libraryBooks.slice(0, 3)}
-          renderItem={({ item }) => (
-            <Book title={item.title} image={item.image} author={item.author}/>
-          )}
-          keyExtractor={(item) => item.id}
+          renderItem={Book}
+        // renderItem={({ item }) => (
+        //   <Book title={item.title} image={item.image} author={item.author}/>
+        // )}
+        // keyExtractor={(item) => item.id}
         />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => navigation.navigate('Library')}>
@@ -50,10 +50,11 @@ export default Home = ({ navigation }) => {
         <FlatList
           horizontal={true}
           data={storeBooks.slice(0, 3)}
-          renderItem={({ item }) => (
-            <Book title={item.title} image={item.image} author={item.author}/>
-          )}
-          keyExtractor={(item) => item.id}
+          renderItem={Book}
+        // renderItem={({ item }) => (
+        //   <Book title={item.title} image={item.image} author={item.author}/>
+        // )}
+        // keyExtractor={(item) => item.id}
         />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => navigation.navigate('Store')}>

@@ -7,7 +7,7 @@ import Signup from './signup';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
 import LibraryMain from './library';
-import BookScreen from './bookScreen';
+import BookDetail from './bookDetail';
 import StoreMain from './store';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -58,8 +58,8 @@ export default App = () => {
   return (
     <NavigationContainer style={styles.container}>
       <Stack.Navigator>
-        <Stack.Screen name="Main" component={BottomNav} options={{headerShown: false}}/>
-        <Stack.Screen name="Book" component={BookScreen}/>
+        <Stack.Screen name="MainStack" component={BottomNav} options={{headerShown: false}}/>
+        <Stack.Screen name="Book" component={BookDetail}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

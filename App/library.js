@@ -8,31 +8,38 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 import books from './libraryData';
+import BookDetail from './bookDetail';
 const searchIcon = require('./assets/search-icon.png');
-
+const Stack = createStackNavigator();
 
 export default LibraryMain = ({ navigation }) => {
-  function handleBookPress(book) {
-    navigation.navigate('BookScreen', { book });
-  } //no navigator other than stack navigator in main file
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName='LibraryMain'>
+      <Stack.Screen name="LibraryMain" component={LibraryMain} />
+      <Stack.Screen name="Book" component={BookDetail} />
+    </Stack.Navigator>
+  </NavigationContainer>
 
-  const Book = ({ title, image, author }) => (
-    <TouchableOpacity
-      style={styles.bookContainer}
-      onPress={() =>
-        handleBookPress({ title, image, author })
-      }>
-      <Image source={{ uri: image }} style={styles.bookCover} />
-      <Text style={styles.bookTitle}>
-        {title}
-        <Text style={styles.bookAuthor}>
-          {'\nby '}
-          {author}
+  const Book = ({ item }) => {
+    return (
+      <TouchableOpacity
+        style={styles.bookContainer}
+        onPress={() => navigation.navigate('Book', { item })
+        }>
+        <Image source={{ uri: item.image }} style={styles.bookCover} />
+        <Text style={styles.bookTitle}>
+          {item.title}
+          <Text style={styles.bookAuthor}>
+            {'\nby '}
+            {item.author}
+          </Text>
         </Text>
-      </Text>
-    </TouchableOpacity>
-  );
+      </TouchableOpacity>
+    )
+  }
   return (
     // <ScrollView contentContainerStyle={styles.container}>
     //   <Text style={styles.header}>Your Books</Text>
@@ -49,7 +56,7 @@ export default LibraryMain = ({ navigation }) => {
     //       <Image source={searchIcon} style={styles.searchIcon} />
     //     </TouchableOpacity>
     //   </View>
-    <View style={styles.container}> 
+    <View style={styles.container}>
       <FlatList
         // contentContainerStyle={styles.container}
         ListHeaderComponent={
@@ -71,10 +78,11 @@ export default LibraryMain = ({ navigation }) => {
           </>
         }
         data={books}
-        renderItem={({ item }) => (
-          <Book title={item.title} image={item.image} author={item.author} />
-        )}
-        keyExtractor={(item) => item.id}
+        renderItem={Book}
+        // renderItem={({ item }) => (
+        //   <Book title={item.title} image={item.image} author={item.author} />
+        // )}
+        // keyExtractor={(item) => item.id}
       />
     </View> //warning virtualized list should never be nested inside plain scrollview with the same orientation but app works fine
     // </ScrollView>

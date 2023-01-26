@@ -8,22 +8,32 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 import books from './storeData.js';
+import BookDetail from './bookDetail';
 const searchIcon = require('./assets/search-icon.png');
+const Stack = createStackNavigator();
 
-export default function StoreMain() {
-  const Book = ({ title, image, author }) => (
+export default function StoreMain({navigation}) {
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName='StoreMain'>
+      <Stack.Screen name="StoreMain" component={StoreMain} />
+      <Stack.Screen name="Book" component={BookDetail} />
+    </Stack.Navigator>
+  </NavigationContainer>
+
+  const Book = ({ item }) => (
     <TouchableOpacity
       style={styles.bookContainer}
-      onPress={() => {
-        Alert.alert(title, author);
-      }}>
-      <Image source={{ uri: image }} style={styles.bookCover} />
+      onPress={() => navigation.navigate('Book', { item })
+      }>
+      <Image source={{ uri: item.image }} style={styles.bookCover} />
       <Text style={styles.bookTitle}>
-        {title}
+        {item.title}
         <Text style={styles.bookAuthor}>
           {'\nby '}
-          {author}
+          {item.author}
         </Text>
       </Text>
     </TouchableOpacity>
@@ -69,10 +79,11 @@ export default function StoreMain() {
           </>
         }
         data={books}
-        renderItem={({ item }) => (
-          <Book title={item.title} image={item.image} author={item.author} />
-        )}
-        keyExtractor={(item) => item.id}
+        renderItem={Book}
+      // renderItem={({ item }) => (
+      //   <Book title={item.title} image={item.image} author={item.author} />
+      // )}
+      // keyExtractor={(item) => item.id}
       />
     </View>
     // </ScrollView>
