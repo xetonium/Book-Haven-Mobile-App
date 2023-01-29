@@ -9,16 +9,27 @@ import {
     Alert,
 } from 'react-native';
 const appIcon = require('./assets/appIcon.png');
+import fireBaseApp from './firebase';
+const auth = fireBaseApp.auth();
 
-export default function Login() {
+export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const login = () => {
-        if (email == 'example@mail.com' && password == '123456') {
-            Alert.alert('Login Success');
-        } else {
-            Alert.alert('Login Failed');
+    const onHandleLogin = async () => {
+        try {
+            if (email == '' || password == '') {
+                Alert.alert("Please enter all fields!");
+            }
+
+            else {
+                await auth.signInWithEmailAndPassword(email, password);
+                navigation.navigate("Home");
+                setEmail('');
+                setPassword('');
+            }
+        } catch (error) {
+            Alert.alert(error.message);
         }
     };
 
@@ -33,6 +44,7 @@ export default function Login() {
                     placeholder={'example@mail.com'}
                     placeholderTextColor={'#807F80'}
                     autoCapitalize="none"
+                    keyboardType="email-address"
                     value={email}
                     onChangeText={(text) => setEmail(text)}
                 />
@@ -44,14 +56,14 @@ export default function Login() {
                     value={password}
                     onChangeText={(text) => setPassword(text)}
                 />
-                <TouchableOpacity style={styles.enterButton} onPress={login}>
+                <TouchableOpacity style={styles.enterButton} onPress={onHandleLogin}>
                     <Text style={styles.enterButtonText}> Sign in</Text>
                 </TouchableOpacity>
                 <View style={styles.bottomNav}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
                         <Text style={styles.bottomNavText}>Sign up</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Forgot Password")}>
                         <Text style={styles.bottomNavText}>Forgot password</Text>
                     </TouchableOpacity>
                 </View>
@@ -66,7 +78,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(24, 210, 251, 0.50)',
-        paddingTop: 150,
     },
     logo: {
         height: 128,

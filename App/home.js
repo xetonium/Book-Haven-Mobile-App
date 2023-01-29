@@ -10,29 +10,42 @@ import {
 } from 'react-native';
 import storeBooks from './storeData.js';
 import libraryBooks from './libraryData.js';
+import fireBaseApp from './firebase';
+const auth = fireBaseApp.auth();
 
 export default Home = ({ navigation }) => {
-  const Book = ({ title, image, author }) => (
+  const Book = ({ item }) => (
     <TouchableOpacity
-      onPress={() => {
-        Alert.alert(title, author);
-      }}>
-      <Image source={{ uri: image }} style={styles.book} />
+      onPress={() => navigation.navigate('Book', { item })
+      }>
+      <Image source={{ uri: item.image }} style={styles.book} />
     </TouchableOpacity>
   );
 
+  const onHandleLogout = async () => {
+    try {
+      await auth.signOut();
+      navigation.navigate('Login');
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
+
   return (
     <ScrollView style={styles.container}>
+      <View style={styles.logoutContainer}>
+        <TouchableOpacity onPress={onHandleLogout}>
+          <Text style={styles.logoutText}>Logout</Text>
+          <Image source={require('./assets/logout.png')} style={styles.logoutImage} />
+        </TouchableOpacity>
+      </View>
       <Text style={styles.header}>Welcome Back</Text>
       <Text style={styles.subHeader}>pick up from where you left off</Text>
       <ScrollView horizontal={true} style={styles.bookContainer}>
         <FlatList
           horizontal={true}
           data={libraryBooks.slice(0, 3)}
-          renderItem={({ item }) => (
-            <Book title={item.title} image={item.image} author={item.author}/>
-          )}
-          keyExtractor={(item) => item.id}
+          renderItem={Book}
         />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => navigation.navigate('Library')}>
@@ -50,10 +63,7 @@ export default Home = ({ navigation }) => {
         <FlatList
           horizontal={true}
           data={storeBooks.slice(0, 3)}
-          renderItem={({ item }) => (
-            <Book title={item.title} image={item.image} author={item.author}/>
-          )}
-          keyExtractor={(item) => item.id}
+          renderItem={Book}
         />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => navigation.navigate('Store')}>
@@ -121,4 +131,18 @@ const styles = StyleSheet.create({
     marginRight: 10,
     textDecorationLine: 'underline',
   },
+  logoutContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+
+  logoutText: {
+    fontSize: 25,
+  },
+
+  logoutImage: {
+    marginLeft: 22,
+    height: 25,
+    width: 25,
+  }
 });

@@ -7,7 +7,7 @@ import Signup from './signup';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
 import LibraryMain from './library';
-import BookScreen from './bookScreen';
+import BookDetail from './bookDetail';
 import StoreMain from './store';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -30,9 +30,28 @@ const storeIcon = () => {
   );
 };
 
-function BottomNav() {
+const MainNav = () => {
   return (
-    <Tab.Navigator initialRouteName="Home">
+    <Tab.Navigator initialRouteName="Login">
+      <Tab.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false, tabBarButton: () => null, tabBarVisible: false, tabBarStyle: { display: 'none' } }}
+      />
+
+      <Tab.Screen
+        name="Signup"
+        component={Signup}
+        options={{ headerShown: false, tabBarButton: () => null, tabBarVisible: false, tabBarVisible: false, tabBarStyle: { display: 'none' } }}
+      />
+
+
+      <Tab.Screen
+        name="Forgot Password"
+        component={ForgotPassword}
+        options={{ headerShown: false, tabBarButton: () => null, tabBarVisible: false, tabBarVisible: false, tabBarStyle: { display: 'none' } }}
+      />
+
       <Tab.Screen
         name="Home"
         component={Home}
@@ -57,9 +76,9 @@ function BottomNav() {
 export default App = () => {
   return (
     <NavigationContainer style={styles.container}>
-      <Stack.Navigator>
-        <Stack.Screen name="Main" component={BottomNav} options={{headerShown: false}}/>
-        <Stack.Screen name="Book" component={BookScreen}/>
+      <Stack.Navigator screenOptions={{ headerBackTitle: 'Back' }}>
+        <Stack.Screen name="MainStack" component={MainNav} options={{ headerShown: false }} />
+        <Stack.Screen name="Book" component={BookDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

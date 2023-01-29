@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   View,
   Text,
@@ -6,8 +7,29 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
+import fireBaseApp from './firebase';
+const auth = fireBaseApp.auth();
 
-export default ForgotPassword = () => {
+export default ForgotPassword = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+
+  const onHandlePasswordReset = async () => {
+    try {
+      if (email == '') {
+        Alert.alert("Please enter all fields!");
+      }
+
+      else {
+        await auth.sendPasswordResetEmail(email);
+        Alert.alert('Success', 'Check email for instructions!');
+        navigation.navigate("Login");
+        setEmail('');
+      }
+    } catch (error) {
+      Alert.alert(error.message)
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Forgot Password?</Text>
@@ -18,17 +40,18 @@ export default ForgotPassword = () => {
           style={styles.textInputBox}
           placeholder={'example@mail.com'}
           placeholderTextColor={'#807f80'}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
         />
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => {
-            Alert.alert('Reset password', 'Check email for instructions!');
-          }}>
+          onPress={onHandlePasswordReset}
+          >
           <Text style={styles.buttonText}>reset password</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.buttonText}>cancel</Text>
         </TouchableOpacity>
       </View>
