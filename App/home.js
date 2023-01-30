@@ -33,12 +33,12 @@ export default Home = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.logoutContainer}>
-        <TouchableOpacity onPress={onHandleLogout}>
+      <TouchableOpacity onPress={onHandleLogout} style={styles.button}>
+        <View style={styles.logoutContainer}>
           <Text style={styles.logoutText}>Logout</Text>
           <Image source={require('./assets/logout.png')} style={styles.logoutImage} />
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
       <Text style={styles.header}>Welcome Back</Text>
       <Text style={styles.subHeader}>pick up from where you left off</Text>
       <ScrollView horizontal={true} style={styles.bookContainer}>
@@ -70,8 +70,7 @@ export default Home = ({ navigation }) => {
             <Image
               source={require('./assets/arrow-right.png')}
               style={styles.arrowImage}
-            />
-            <Text style={styles.seeAllText}>see all</Text>
+            /><Text style={styles.seeAllText}>see all</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -86,18 +85,13 @@ const styles = StyleSheet.create({
 
   header: {
     fontSize: 40,
-    fontFamily: 'Trebuchet MS',
     fontWeight: 'bold',
     textAlign: 'center',
-    marginLeft: 41,
-    marginRight: 41,
-    paddingTop: 20,
     paddingBottom: 30,
   },
 
   subHeader: {
     fontSize: 22,
-    fontFamily: 'Trebuchet MS',
     fontWeight: 'bold',
     marginLeft: 10,
     paddingBottom: 25,
@@ -131,9 +125,18 @@ const styles = StyleSheet.create({
     marginRight: 10,
     textDecorationLine: 'underline',
   },
+
+  button: {
+    borderWidth: 1,
+    borderRadius: 5,
+    marginLeft: 277,
+    marginRight: 10,
+  },
+
   logoutContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
   },
 
   logoutText: {
@@ -141,8 +144,8 @@ const styles = StyleSheet.create({
   },
 
   logoutImage: {
-    marginLeft: 22,
+    marginLeft: 10,
     height: 25,
     width: 25,
-  }
+  },
 });
