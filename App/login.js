@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         height: 128,
         width: 128,
         alignItems: 'center',
-        justifyContent: 'centre',
+        justifyContent: 'center',
         borderRadius: 90,
     },
     headerText: {

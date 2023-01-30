@@ -22,23 +22,37 @@ export default Home = ({ navigation }) => {
     </TouchableOpacity>
   );
 
-  const onHandleLogout = async () => {
-    try {
-      await auth.signOut();
-      navigation.navigate('Login');
-    } catch (error) {
-      Alert.alert(error.message);
-    }
+  const onHandleLogout = () => {
+    Alert.alert(
+      "Logout",
+      "Do you wish to continue?",
+      [
+        {
+          text: "Yes",
+          onPress: async () => {
+            try {
+              await auth.signOut();
+              navigation.navigate('Login');
+            } catch (error) {
+              Alert.alert(error.message);
+            }
+          }
+        },
+        {
+          text: "Cancel",
+        },
+      ],
+    );
   };
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.logoutContainer}>
-        <TouchableOpacity onPress={onHandleLogout}>
+      <TouchableOpacity onPress={onHandleLogout} style={styles.button}>
+        <View style={styles.logoutContainer}>
           <Text style={styles.logoutText}>Logout</Text>
           <Image source={require('./assets/logout.png')} style={styles.logoutImage} />
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
       <Text style={styles.header}>Welcome Back</Text>
       <Text style={styles.subHeader}>pick up from where you left off</Text>
       <ScrollView horizontal={true} style={styles.bookContainer}>
@@ -131,18 +145,27 @@ const styles = StyleSheet.create({
     marginRight: 10,
     textDecorationLine: 'underline',
   },
+
+  button: {
+    borderWidth: 1,
+    borderRadius: 5,
+    marginLeft: 277,
+    marginRight: 10,
+  },
+
   logoutContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
   },
 
   logoutText: {
     fontSize: 25,
   },
-
+  
   logoutImage: {
-    marginLeft: 22,
+    marginLeft: 10,
     height: 25,
-    width: 25,
+    width: 25
   }
 });

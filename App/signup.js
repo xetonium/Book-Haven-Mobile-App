@@ -15,7 +15,7 @@ export default function Signup({ navigation }) {
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 
-	const clear = () => {
+	const onHandleClear = () => {
 		setEmail('');
 		setPassword('');
 		setConfirmPassword('');
@@ -44,6 +44,13 @@ export default function Signup({ navigation }) {
 			Alert.alert(error.message);
 		}
 	};
+
+	const onHandleCancel = () => {
+		navigation.navigate("Login");
+		setEmail('');
+		setPassword('');
+		setConfirmPassword('');
+	}
 
 	return (
 		<View style={styles.container}>
@@ -80,13 +87,13 @@ export default function Signup({ navigation }) {
 					value={confirmPassword}
 					onChangeText={(text) => setConfirmPassword(text)}
 				/>
-				<TouchableOpacity onPress={clear} style={styles.clearForm}>
+				<TouchableOpacity onPress={onHandleClear} style={styles.clearForm}>
 					<Text style={styles.clearText}>Clear</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.enterButton} onPress={onHandleSignUp}>
 					<Text style={styles.buttonText}>Sign up</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('Login')}>
+				<TouchableOpacity style={styles.cancelButton} onPress={onHandleCancel}>
 					<Text style={styles.buttonText}>Cancel</Text>
 				</TouchableOpacity>
 			</View>
