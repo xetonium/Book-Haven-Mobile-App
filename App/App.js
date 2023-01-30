@@ -76,9 +76,15 @@ const MainNav = () => {
 export default App = () => {
   return (
     <NavigationContainer style={styles.container}>
+<<<<<<< HEAD
       <Stack.Navigator screenOptions={{ headerBackTitle: 'Back' }}>
         <Stack.Screen name="MainStack" component={MainNav} options={{ headerShown: false }} />
         <Stack.Screen name="Book" component={BookDetail} />
+=======
+      <Stack.Navigator>
+        <Stack.Screen name="MainStack" component={BottomNav} options={{headerShown: false}}/>
+        <Stack.Screen name="Book" component={BookDetail}/>
+>>>>>>> 59bfe5375d32b65c021fbfe8475ea0b45054b550
       </Stack.Navigator>
     </NavigationContainer>
   );
