@@ -22,13 +22,27 @@ export default Home = ({ navigation }) => {
     </TouchableOpacity>
   );
 
-  const onHandleLogout = async () => {
-    try {
-      await auth.signOut();
-      navigation.navigate('Login');
-    } catch (error) {
-      Alert.alert(error.message);
-    }
+  const onHandleLogout = () => {
+    Alert.alert(
+      "Logout",
+      "Do you wish to continue?",
+      [
+        {
+          text: "Yes",
+          onPress: async () => {
+            try {
+              await auth.signOut();
+              navigation.navigate('Login');
+            } catch (error) {
+              Alert.alert(error.message);
+            }
+          }
+        },
+        {
+          text: "Cancel",
+        },
+      ],
+    );
   };
 
   return (

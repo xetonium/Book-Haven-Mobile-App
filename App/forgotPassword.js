@@ -13,6 +13,11 @@ const auth = fireBaseApp.auth();
 export default ForgotPassword = ({ navigation }) => {
   const [email, setEmail] = useState('');
 
+  const onHandleCancel = () => {
+    navigation.navigate("Login");
+    setEmail('');
+  }
+
   const onHandlePasswordReset = async () => {
     try {
       if (email == '') {
@@ -47,11 +52,11 @@ export default ForgotPassword = ({ navigation }) => {
         <TouchableOpacity
           style={styles.button}
           onPress={onHandlePasswordReset}
-          >
+        >
           <Text style={styles.buttonText}>reset password</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity style={styles.button} onPress={onHandleCancel}>
           <Text style={styles.buttonText}>cancel</Text>
         </TouchableOpacity>
       </View>
