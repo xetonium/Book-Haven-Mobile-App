@@ -46,13 +46,6 @@ export default Home = ({ navigation }) => {
           horizontal={true}
           data={libraryBooks.slice(0, 3)}
           renderItem={Book}
-<<<<<<< HEAD
-=======
-        // renderItem={({ item }) => (
-        //   <Book title={item.title} image={item.image} author={item.author}/>
-        // )}
-        // keyExtractor={(item) => item.id}
->>>>>>> 59bfe5375d32b65c021fbfe8475ea0b45054b550
         />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => navigation.navigate('Library')}>
@@ -71,13 +64,6 @@ export default Home = ({ navigation }) => {
           horizontal={true}
           data={storeBooks.slice(0, 3)}
           renderItem={Book}
-<<<<<<< HEAD
-=======
-        // renderItem={({ item }) => (
-        //   <Book title={item.title} image={item.image} author={item.author}/>
-        // )}
-        // keyExtractor={(item) => item.id}
->>>>>>> 59bfe5375d32b65c021fbfe8475ea0b45054b550
         />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => navigation.navigate('Store')}>

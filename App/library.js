@@ -41,24 +41,6 @@ export default LibraryMain = ({ navigation }) => {
     )
   }
   return (
-<<<<<<< HEAD
-=======
-    // <ScrollView contentContainerStyle={styles.container}>
-    //   <Text style={styles.header}>Your Books</Text>
-    //   <View style={{ flexDirection: 'row' }}>
-    //     <TextInput
-    //       style={styles.searchBar}
-    //       placeholder="search by title or author"
-    //       placeholderTextColor={'#807f80'}
-    //     />
-    //     <TouchableOpacity
-    //       onPress={() => {
-    //         Alert.alert('Loading...');
-    //       }}>
-    //       <Image source={searchIcon} style={styles.searchIcon} />
-    //     </TouchableOpacity>
-    //   </View>
->>>>>>> 59bfe5375d32b65c021fbfe8475ea0b45054b550
     <View style={styles.container}>
       <FlatList
         ListHeaderComponent={
@@ -81,14 +63,6 @@ export default LibraryMain = ({ navigation }) => {
         }
         data={books}
         renderItem={Book}
-<<<<<<< HEAD
-
-=======
-        // renderItem={({ item }) => (
-        //   <Book title={item.title} image={item.image} author={item.author} />
-        // )}
-        // keyExtractor={(item) => item.id}
->>>>>>> 59bfe5375d32b65c021fbfe8475ea0b45054b550
       />
     </View> //warning virtualized list should never be nested inside plain scrollview with the same orientation but app works fine
   );
