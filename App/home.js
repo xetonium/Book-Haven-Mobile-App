@@ -58,22 +58,24 @@ export default Home = ({ navigation }) => {
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Welcome Back</Text>
       <Text style={styles.subHeader}>pick up from where you left off</Text>
-      <ScrollView horizontal={true} style={styles.bookContainer}>
+      <View style={styles.bookContainer}>
         <FlatList
           horizontal={true}
           data={libraryBooks.slice(0, 3)}
           renderItem={LibBook}
+          ListFooterComponent={
+            <>
+              <TouchableOpacity onPress={() => navigation.navigate('Library')} style={styles.arrowView}>
+                <Image
+                  source={require('./assets/arrow-right.png')}
+                  style={styles.arrowImage}
+                />
+                <Text style={styles.seeAllText}>see all</Text>
+              </TouchableOpacity>
+            </>
+          }
         />
-        <View style={styles.arrowView}>
-          <TouchableOpacity onPress={() => navigation.navigate('Library')}>
-            <Image
-              source={require('./assets/arrow-right.png')}
-              style={styles.arrowImage}
-            />
-            <Text style={styles.seeAllText}>see all</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      </View>
 
       <Text style={styles.subHeader}>popular picks for you</Text>
       <ScrollView horizontal={true} style={styles.bookContainer}>
@@ -81,15 +83,18 @@ export default Home = ({ navigation }) => {
           horizontal={true}
           data={storeBooks.slice(0, 3)}
           renderItem={StoreBook}
+          ListFooterComponent={
+            <>
+              <TouchableOpacity onPress={() => navigation.navigate('Store')} style={styles.arrowView}>
+                <Image
+                  source={require('./assets/arrow-right.png')}
+                  style={styles.arrowImage}
+                />
+                <Text style={styles.seeAllText}>see all</Text>
+              </TouchableOpacity>
+            </>
+          }
         />
-        <View style={styles.arrowView}>
-          <TouchableOpacity onPress={() => navigation.navigate('Store')}>
-            <Image
-              source={require('./assets/arrow-right.png')}
-              style={styles.arrowImage}
-            /><Text style={styles.seeAllText}>see all</Text>
-          </TouchableOpacity>
-        </View>
       </ScrollView>
       <TouchableOpacity onPress={onHandleLogout} style={styles.button}>
         <View style={styles.logoutContainer}>
@@ -142,12 +147,13 @@ const styles = StyleSheet.create({
   seeAllText: {
     textAlign: 'center',
     fontSize: 20,
+    textDecorationLine: 'underline',
   },
 
   arrowView: {
-    justifyContent: 'center',
-    marginRight: 10,
-    textDecorationLine: 'underline',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    paddingRight: 20,
   },
 
   button: {
