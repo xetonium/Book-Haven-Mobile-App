@@ -11,22 +11,22 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import books from './storeData.js';
-import BookDetail from './bookDetail';
+import StoreBookDetail from './storeBookInfo.js';
 const searchIcon = require('./assets/search-icon.png');
 const Stack = createStackNavigator();
 
 export default function StoreMain({ navigation }) {
-  <NavigationContainer>
-    <Stack.Navigator initialRouteName='StoreMain'>
-      <Stack.Screen name="StoreMain" component={StoreMain} />
-      <Stack.Screen name="Book" component={BookDetail} />
-    </Stack.Navigator>
-  </NavigationContainer>
+  // <NavigationContainer>
+  //   <Stack.Navigator initialRouteName='StoreMain'>
+  //     <Stack.Screen name="StoreMain" component={StoreMain} />
+  //     <Stack.Screen name="Store Book Detail" component={StoreBookDetail} />
+  //   </Stack.Navigator>
+  // </NavigationContainer>
 
   const Book = ({ item }) => (
     <TouchableOpacity
       style={styles.bookContainer}
-      onPress={() => navigation.navigate('Book', { item })
+      onPress={() => navigation.navigate('StoreBookDetail', { item })
       }>
       <Image source={{ uri: item.image }} style={styles.bookCover} />
       <Text style={styles.bookTitle}>

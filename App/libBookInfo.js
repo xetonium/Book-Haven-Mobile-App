@@ -1,28 +1,35 @@
-import { View, ScrollView, Text, Image, StyleSheet } from 'react-native';
-export default BookDetail = ({ route }) => {
+import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+export default LibBookDetail = ({ route, navigation }) => {
+    const book = route.params.item;
     return (
         <ScrollView style={styles.container}>
-            <Image style={styles.book} source={{ uri: route.params.item.image }} />
-            <Text style={styles.title}>{route.params.item.title}</Text>
-            <Text style={styles.author}>{'By '}{route.params.item.author}</Text>
+            <Image style={styles.book} source={{ uri: book.image }} />
+            <Text style={styles.title}>{book.title}</Text>
+            <Text style={styles.author}>{'By '}{book.author}</Text>
             <View style={styles.information}>
                 <View style={styles.column}>
-                    <Text style={styles.bookDetails}>{route.params.item.year}</Text>
+                    <Text style={styles.bookDetails}>{book.year}</Text>
                     <Text style={{ color: '#807f80' }}>Release</Text>
                 </View>
                 <View style={styles.column}>
-                    <Text style={styles.bookDetails}>{route.params.item.language}</Text>
+                    <Text style={styles.bookDetails}>{book.language}</Text>
                     <Text style={{ color: '#807f80' }}>Language</Text>
                 </View>
                 <View style={styles.column}>
-                    <Text style={styles.bookDetails}>{route.params.item.pages}</Text>
+                    <Text style={styles.bookDetails}>{book.pages}</Text>
                     <Text style={{ color: '#807f80' }}>Pages</Text>
                 </View>
             </View>
             <View style={styles.synopsisContainer}>
                 <Text style={{ fontSize: 25, textDecorationLine: 'underline' }}>{'Synopsis'}</Text>
-                <Text style={styles.synopsis}>{route.params.item.synopsis}</Text>
+                <Text style={styles.synopsis}>{book.synopsis}</Text>
             </View>
+            <TouchableOpacity
+                style={styles.readButton}
+                onPress={() => navigation.navigate('BookContent', { book })
+                }>
+                <Text style={styles.read}>Read</Text>
+            </TouchableOpacity>
         </ScrollView>
     )
 }
@@ -69,4 +76,14 @@ const styles = StyleSheet.create({
     synopsis: {
         fontSize: 18,
     },
+    readButton: {
+        marginBottom: 40,
+        borderWidth: 1,
+        borderRadius: 10,
+    },
+    read: {
+        textAlign: 'center',
+        fontSize: 30,
+        padding: 5,
+    }
 })

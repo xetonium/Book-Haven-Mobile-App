@@ -7,7 +7,9 @@ import Signup from './signup';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
 import LibraryMain from './library';
-import BookDetail from './bookDetail';
+import LibBookDetail from './libBookInfo';
+import BookContent from './bookContent';
+import StoreBookDetail from './storeBookInfo';
 import StoreMain from './store';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -78,7 +80,15 @@ export default App = () => {
     <NavigationContainer style={styles.container}>
       <Stack.Navigator screenOptions={{ headerBackTitle: 'Back' }}>
         <Stack.Screen name="MainStack" component={MainNav} options={{ headerShown: false }} />
-        <Stack.Screen name="Book" component={BookDetail} />
+        <Stack.Screen name="LibBookDetail" component={LibBookDetail} options={({ route }) => ({
+          title: route.params.item.title
+        })} />
+        <Stack.Screen name="BookContent" component={BookContent} options={({ route }) => ({
+          title: "Read: " + route.params.book.title
+        })} />
+        <Stack.Screen name="StoreBookDetail" component={StoreBookDetail} options={({ route }) => ({
+          title: route.params.item.title
+        })} />
       </Stack.Navigator>
     </NavigationContainer>
   );

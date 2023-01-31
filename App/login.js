@@ -80,14 +80,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(24, 210, 251, 0.50)',
     },
     logo: {
-        height: 128,
-        width: 128,
+        height: 110,
+        width: 110,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 90,
+        marginBottom: 30,
     },
     headerText: {
-        paddingTop: 40,
         paddingBottom: 40,
         fontSize: 40,
         fontWeight: 'bold',

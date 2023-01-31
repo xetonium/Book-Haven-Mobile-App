@@ -14,13 +14,22 @@ import fireBaseApp from './firebase';
 const auth = fireBaseApp.auth();
 
 export default Home = ({ navigation }) => {
-  const Book = ({ item }) => (
+  const LibBook = ({ item }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('Book', { item })
+      onPress={() => navigation.navigate('LibBookDetail', { item })
       }>
       <Image source={{ uri: item.image }} style={styles.book} />
     </TouchableOpacity>
   );
+
+  const StoreBook = ({ item }) => (
+    <TouchableOpacity
+      onPress={() => navigation.navigate('StoreBookDetail', { item })
+      }>
+      <Image source={{ uri: item.image }} style={styles.book} />
+    </TouchableOpacity>
+  );
+
 
   const onHandleLogout = () => {
     Alert.alert(
@@ -47,19 +56,13 @@ export default Home = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <TouchableOpacity onPress={onHandleLogout} style={styles.button}>
-        <View style={styles.logoutContainer}>
-          <Text style={styles.logoutText}>Logout</Text>
-          <Image source={require('./assets/logout.png')} style={styles.logoutImage} />
-        </View>
-      </TouchableOpacity>
       <Text style={styles.header}>Welcome Back</Text>
       <Text style={styles.subHeader}>pick up from where you left off</Text>
       <ScrollView horizontal={true} style={styles.bookContainer}>
         <FlatList
           horizontal={true}
           data={libraryBooks.slice(0, 3)}
-          renderItem={Book}
+          renderItem={LibBook}
         />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => navigation.navigate('Library')}>
@@ -77,7 +80,7 @@ export default Home = ({ navigation }) => {
         <FlatList
           horizontal={true}
           data={storeBooks.slice(0, 3)}
-          renderItem={Book}
+          renderItem={StoreBook}
         />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => navigation.navigate('Store')}>
@@ -88,6 +91,12 @@ export default Home = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <TouchableOpacity onPress={onHandleLogout} style={styles.button}>
+        <View style={styles.logoutContainer}>
+          <Text style={styles.logoutText}>Logout</Text>
+          <Image source={require('./assets/logout.png')} style={styles.logoutImage} />
+        </View>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -95,6 +104,7 @@ export default Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F5F5DC',
+    paddingTop: 10,
   },
 
   header: {
@@ -143,14 +153,18 @@ const styles = StyleSheet.create({
   button: {
     borderWidth: 1,
     borderRadius: 5,
-    marginLeft: 277,
+    marginLeft: 275,
     marginRight: 10,
+    marginBottom: 50,
   },
 
   logoutContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(221, 121, 115, 0.80)',
+    paddingTop: 5,
+    paddingBottom: 5,
   },
 
   logoutText: {
