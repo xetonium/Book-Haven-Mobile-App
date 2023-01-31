@@ -8,20 +8,28 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
 import books from './storeData.js';
-import StoreBookDetail from './storeBookInfo.js';
+import StoreBooks from './storeData';
+import { useState, useRef } from 'react';
 const searchIcon = require('./assets/search-icon.png');
-const Stack = createStackNavigator();
 
 export default function StoreMain({ navigation }) {
-  // <NavigationContainer>
-  //   <Stack.Navigator initialRouteName='StoreMain'>
-  //     <Stack.Screen name="StoreMain" component={StoreMain} />
-  //     <Stack.Screen name="Store Book Detail" component={StoreBookDetail} />
-  //   </Stack.Navigator>
-  // </NavigationContainer>
+  const [search, setSearch] = useState('');
+  const [clicked, setClicked] = useState(false);
+  const [data, setData] = useState(StoreBooks);
+  const [selectedBook, setSelectedBook] = useState('');
+  const searchRef = useRef();
+
+  const onSearch = search => {
+    if (search !== '') {
+      let tempData = data.filter(item => {
+        return item.title.toLowerCase().indexOf(search.toLowerCase()) > -1;
+      });
+      setData(tempData);
+    } else {
+      setData(StoreBooks);
+    }
+  };
 
   const Book = ({ item }) => (
     <TouchableOpacity
@@ -44,25 +52,62 @@ export default function StoreMain({ navigation }) {
       <FlatList
         ListHeaderComponent={
           <>
-            <Text style={styles.header}>Store</Text>
-            <View style={{ flexDirection: 'row' }}>
-              <TextInput
-                style={styles.searchBar}
-                placeholder="search by title or author"
-                placeholderTextColor={'#807f80'}
-              />
-
+            <Text style={styles.header}>Your Books</Text>
+            <View style={{ flex: 1 }}>
               <TouchableOpacity
+                style={styles.searchBar}
                 onPress={() => {
-                  Alert.alert('Loading...');
+                  setClicked(!clicked);
                 }}>
-                <Image source={searchIcon} style={styles.searchIcon} />
+                <Text style={{ fontWeight: '600' }}>
+                  {selectedBook == '' ? 'Search book by title...' : selectedBook}
+                </Text>
               </TouchableOpacity>
-            </View>
+              {clicked ? (
+                <View style={styles.dropDownContainer}>
+                  <TextInput
+                    placeholder="Search.."
+                    placeholderTextColor={'#807F80'}
+                    value={search}
+                    ref={searchRef}
+                    onChangeText={txt => {
+                      onSearch(txt);
+                      setSearch(txt);
+                    }}
+                    style={styles.dropDown}
+                  />
 
+                  <FlatList
+                    data={data}
+                    renderItem={({ item }) => {
+                      return (
+                        <TouchableOpacity
+                          style={{
+                            width: '85%',
+                            alignSelf: 'center',
+                            height: 50,
+                            justifyContent: 'center',
+                            borderBottomWidth: 0.5,
+                            borderColor: '#8e8e8e',
+                          }}
+                          onPress={() => {
+                            navigation.navigate('StoreBookDetail', {item});
+                            setSelectedBook(item.title);
+                            setClicked(!clicked);
+                            onSearch('');
+                            setSearch('');
+                          }}>
+                          <Text style={{ fontWeight: '600' }}>{item.title}</Text>
+                        </TouchableOpacity>
+                      );
+                    }}
+                  />
+                </View>
+              ) : null}
+            </View>
           </>
         }
-        data={books}
+        data={StoreBooks}
         renderItem={Book}
       />
     </View>
@@ -120,4 +165,36 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontSize: 16,
   },
+  searchBar: {
+    width: '90%',
+    height: 40,
+    borderRadius: 10,
+    borderWidth: 0.5,
+    alignSelf: 'center',
+    marginTop: 5,
+    marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 15,
+  },
+  dropDownContainer: {
+    elevation: 20,
+    height: 640,
+    alignSelf: 'center',
+    width: '90%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  dropDown: {
+    width: '90%',
+    height: 50,
+    alignSelf: 'center',
+    borderWidth: 0.2,
+    borderColor: '#8e8e8e',
+    borderRadius: 7,
+    marginTop: 10,
+    paddingLeft: 20,
+  }
 });
