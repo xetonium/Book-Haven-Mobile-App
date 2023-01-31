@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
         marginBottom: 40,
         borderWidth: 1,
         borderRadius: 10,
+        backgroundColor: '#3ec19e'
     },
     read: {
         textAlign: 'center',
