@@ -40,6 +40,7 @@ export default function StoreMain({ navigation }) {
           {'\nby '}
           {item.author}
         </Text>
+        <Text style={{ fontSize: 20 }}>{'\n$'}{item.buy}</Text>
       </Text>
     </TouchableOpacity>
   );
@@ -90,7 +91,8 @@ export default function StoreMain({ navigation }) {
                             borderColor: '#8e8e8e',
                           }}
                           onPress={() => {
-                            navigation.navigate('LibBookDetail', { item });
+                            navigation.navigate('StoreBookDetail', { item });
+                            setSelectedBook(item.title);
                             setClicked(!clicked);
                             onSearch('');
                             setSearch('');
