@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Text,
     View,
@@ -32,6 +32,16 @@ export default function Login({ navigation }) {
             Alert.alert(error.message);
         }
     };
+
+    useEffect(() => {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                navigation.navigate("Home");
+            } else {
+                return;
+            }
+        });
+    }, []);
 
     return (
         <View style={styles.container}>

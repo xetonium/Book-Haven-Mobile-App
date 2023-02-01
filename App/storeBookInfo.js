@@ -6,6 +6,7 @@ export default StoreBookDetail = ({ route }) => {
             <Image style={styles.book} source={{ uri: book.image }} />
             <Text style={styles.title}>{book.title}</Text>
             <Text style={styles.author}>{'By '}{book.author}</Text>
+            <Text style={styles.price}>Price: ${book.buy}</Text>
             <View style={styles.information}>
                 <View style={styles.column}>
                     <Text style={styles.bookDetails}>{book.year}</Text>
@@ -48,6 +49,11 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontStyle: 'italic',
         textAlign: 'center',
+    },
+    price:{
+        fontSize: 22,
+        paddingTop: 10,
+        textAlign:'right',
     },
     information: {
         flexDirection: 'row',

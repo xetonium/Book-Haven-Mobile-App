@@ -6,18 +6,15 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
-import books from './storeData.js';
 import StoreBooks from './storeData';
 import { useState, useRef } from 'react';
-const searchIcon = require('./assets/search-icon.png');
+import { AntDesign } from '@expo/vector-icons';
 
 export default function StoreMain({ navigation }) {
   const [search, setSearch] = useState('');
   const [clicked, setClicked] = useState(false);
   const [data, setData] = useState(StoreBooks);
-  const [selectedBook, setSelectedBook] = useState('');
   const searchRef = useRef();
 
   const onSearch = search => {
@@ -52,31 +49,33 @@ export default function StoreMain({ navigation }) {
       <FlatList
         ListHeaderComponent={
           <>
-            <Text style={styles.header}>Your Books</Text>
+            <Text style={styles.header}>Store</Text>
             <View style={{ flex: 1 }}>
+              <Text style={{ marginLeft: 20, fontSize: 20, }}>Search by title:</Text>
               <TouchableOpacity
                 style={styles.searchBar}
                 onPress={() => {
                   setClicked(!clicked);
                 }}>
-                <Text style={{ fontWeight: '600' }}>
-                  {selectedBook == '' ? 'Search book by title...' : selectedBook}
-                </Text>
+                {clicked ? (
+                  <View style={{ flexDirection: 'row' }}>
+                    <TextInput
+                      placeholder="Search..."
+                      placeholderTextColor={'#807F80'}
+                      value={search}
+                      ref={searchRef}
+                      onChangeText={txt => {
+                        onSearch(txt);
+                        setSearch(txt);
+                      }}
+                      style={styles.dropDown}
+                    />
+                    <AntDesign name="upcircleo" size={24} color="black" style={{ paddingTop: 8, paddingLeft: 6 }} />
+                  </View>
+                ) : null}
               </TouchableOpacity>
               {clicked ? (
                 <View style={styles.dropDownContainer}>
-                  <TextInput
-                    placeholder="Search.."
-                    placeholderTextColor={'#807F80'}
-                    value={search}
-                    ref={searchRef}
-                    onChangeText={txt => {
-                      onSearch(txt);
-                      setSearch(txt);
-                    }}
-                    style={styles.dropDown}
-                  />
-
                   <FlatList
                     data={data}
                     renderItem={({ item }) => {
@@ -91,8 +90,7 @@ export default function StoreMain({ navigation }) {
                             borderColor: '#8e8e8e',
                           }}
                           onPress={() => {
-                            navigation.navigate('StoreBookDetail', {item});
-                            setSelectedBook(item.title);
+                            navigation.navigate('LibBookDetail', { item });
                             setClicked(!clicked);
                             onSearch('');
                             setSearch('');
@@ -168,19 +166,20 @@ const styles = StyleSheet.create({
   searchBar: {
     width: '90%',
     height: 40,
-    borderRadius: 10,
-    borderWidth: 0.5,
+    borderRadius: 7,
+    borderWidth: 1,
     alignSelf: 'center',
     marginTop: 5,
     marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: 15,
+    paddingLeft: 0,
+    paddingRight: 40
   },
   dropDownContainer: {
     elevation: 20,
-    height: 640,
+    height: 580,
     alignSelf: 'center',
     width: '90%',
     backgroundColor: '#fff',
@@ -188,13 +187,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   dropDown: {
-    width: '90%',
-    height: 50,
+    width: '93%',
+    height: 40,
     alignSelf: 'center',
-    borderWidth: 0.2,
+    borderWidth: 0,
     borderColor: '#8e8e8e',
-    borderRadius: 7,
-    marginTop: 10,
-    paddingLeft: 20,
+    paddingLeft: 15,
+    paddingBottom: 2,
   }
 });
