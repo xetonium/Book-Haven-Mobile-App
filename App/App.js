@@ -34,7 +34,7 @@ const storeIcon = () => {
 
 const MainNav = () => {
   return (
-    <Tab.Navigator initialRouteName="Login">
+    <Tab.Navigator>
       <Tab.Screen
         name="Login"
         component={Login}
@@ -84,7 +84,7 @@ export default App = () => {
           title: route.params.item.title
         })} />
         <Stack.Screen name="BookContent" component={BookContent} options={({ route }) => ({
-          title: "Read: " + route.params.book.title
+          title: route.params.book.title
         })} />
         <Stack.Screen name="StoreBookDetail" component={StoreBookDetail} options={({ route }) => ({
           title: route.params.item.title

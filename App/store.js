@@ -6,12 +6,9 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
-import books from './storeData.js';
 import StoreBooks from './storeData';
 import { useState, useRef } from 'react';
-const searchIcon = require('./assets/search-icon.png');
 
 export default function StoreMain({ navigation }) {
   const [search, setSearch] = useState('');
@@ -43,6 +40,7 @@ export default function StoreMain({ navigation }) {
           {'\nby '}
           {item.author}
         </Text>
+        <Text style={{ fontSize: 20 }}>{'\n$'}{item.buy}</Text>
       </Text>
     </TouchableOpacity>
   );
@@ -52,7 +50,7 @@ export default function StoreMain({ navigation }) {
       <FlatList
         ListHeaderComponent={
           <>
-            <Text style={styles.header}>Your Books</Text>
+            <Text style={styles.header}>Store</Text>
             <View style={{ flex: 1 }}>
               <TouchableOpacity
                 style={styles.searchBar}
@@ -91,7 +89,7 @@ export default function StoreMain({ navigation }) {
                             borderColor: '#8e8e8e',
                           }}
                           onPress={() => {
-                            navigation.navigate('StoreBookDetail', {item});
+                            navigation.navigate('StoreBookDetail', { item });
                             setSelectedBook(item.title);
                             setClicked(!clicked);
                             onSearch('');

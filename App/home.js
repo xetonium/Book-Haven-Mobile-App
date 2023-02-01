@@ -31,7 +31,7 @@ export default Home = ({ navigation }) => {
   );
 
 
-  const onHandleLogout = () => {
+  const onHandleLogout = async () => {
     Alert.alert(
       "Logout",
       "Do you wish to continue?",

@@ -28,5 +28,10 @@
   "devDependencies": {
     "@babel/core": "^7.12.9"
   },
-  "private": true
+  "private": true,
+  "name": "app",
+  "description": "Open the `App.js` file to start writing some code. You can preview the changes directly on your phone or tablet by scanning the **QR code** or use the iOS or Android emulators. When you're done, click **Save** and share the link!",
+  "version": "1.0.0",
+  "author": "",
+  "license": "ISC"
 }

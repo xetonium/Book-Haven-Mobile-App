@@ -6,7 +6,6 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 
 import LibraryBooks from './libraryData';
