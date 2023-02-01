@@ -92,10 +92,7 @@ export default function StoreMain({ navigation }) {
                           }}
                           onPress={() => {
                             navigation.navigate('StoreBookDetail', { item });
-                            setSelectedBook(item.title);
                             setClicked(!clicked);
-                            onSearch('');
-                            setSearch('');
                           }}>
                           <Text style={{ fontWeight: '600' }}>{item.title}</Text>
                         </TouchableOpacity>

@@ -94,8 +94,6 @@ export default LibraryMain = ({ navigation }) => {
                           onPress={() => {
                             navigation.navigate('LibBookDetail', { item });
                             setClicked(!clicked);
-                            onSearch('');
-                            setSearch('');
                           }}>
                           <Text style={{ fontWeight: '600' }}>{item.title}</Text>
                         </TouchableOpacity>
