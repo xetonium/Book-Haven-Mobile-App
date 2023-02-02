@@ -72,7 +72,7 @@ export default LibraryMain = ({ navigation }) => {
                       }}
                       style={styles.dropDown}
                     />
-                    <AntDesign name="upcircleo" size={24} color="black" style={{ paddingTop: 8, paddingRight: 15, paddingLeft: 15 }} />
+                    <AntDesign name="upcircleo" size={24} color="black" style={styles.arrowUpIcon} />
                   </View>
                 ) : null}
               </TouchableOpacity>
@@ -178,5 +178,10 @@ const styles = StyleSheet.create({
     borderColor: '#8e8e8e',
     paddingLeft: 15,
     paddingBottom: 2,
+  },
+  arrowUpIcon: {
+    paddingTop: 8, 
+    paddingRight: 15,
+    paddingLeft: 15,
   }
 });
