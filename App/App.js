@@ -1,7 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
 import Login from './login';
 import Signup from './signup';
 import ForgotPassword from './forgotPassword';

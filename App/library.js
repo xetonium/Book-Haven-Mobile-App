@@ -72,7 +72,7 @@ export default LibraryMain = ({ navigation }) => {
                       }}
                       style={styles.dropDown}
                     />
-                    <AntDesign name="upcircleo" size={24} color="black" style={{ paddingTop: 8, paddingLeft: 6 }} />
+                    <AntDesign name="upcircleo" size={24} color="black" style={{ paddingTop: 8, paddingRight: 15, paddingLeft: 15 }} />
                   </View>
                 ) : null}
               </TouchableOpacity>
@@ -94,6 +94,8 @@ export default LibraryMain = ({ navigation }) => {
                           onPress={() => {
                             navigation.navigate('LibBookDetail', { item });
                             setClicked(!clicked);
+                            onSearch('');
+                            setSearch('');
                           }}>
                           <Text style={{ fontWeight: '600' }}>{item.title}</Text>
                         </TouchableOpacity>
@@ -147,7 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   searchBar: {
-    width: '90%',
+    width: 350,
     height: 40,
     borderRadius: 7,
     borderWidth: 1,
@@ -161,16 +163,15 @@ const styles = StyleSheet.create({
     paddingRight: 40
   },
   dropDownContainer: {
-    elevation: 20,
     height: 330,
     alignSelf: 'center',
-    width: '90%',
+    width: 350,
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 20,
   },
   dropDown: {
-    width: '93%',
+    width: 283,
     height: 40,
     alignSelf: 'center',
     borderWidth: 0,

@@ -40,7 +40,6 @@ export default function StoreMain({ navigation }) {
           {'\nby '}
           {item.author}
         </Text>
-        <Text style={{ fontSize: 20 }}>{'\n$'}{item.buy}</Text>
       </Text>
     </TouchableOpacity>
   );
@@ -71,7 +70,7 @@ export default function StoreMain({ navigation }) {
                       }}
                       style={styles.dropDown}
                     />
-                    <AntDesign name="upcircleo" size={24} color="black" style={{ paddingTop: 8, paddingLeft: 6 }} />
+                    <AntDesign name="upcircleo" size={24} color="black" style={{ paddingTop: 8, paddingRight: 15, paddingLeft: 15 }} />
                   </View>
                 ) : null}
               </TouchableOpacity>
@@ -91,8 +90,10 @@ export default function StoreMain({ navigation }) {
                             borderColor: '#8e8e8e',
                           }}
                           onPress={() => {
-                            navigation.navigate('StoreBookDetail', { item });
+                            navigation.navigate('LibBookDetail', { item });
                             setClicked(!clicked);
+                            onSearch('');
+                            setSearch('');
                           }}>
                           <Text style={{ fontWeight: '600' }}>{item.title}</Text>
                         </TouchableOpacity>
@@ -123,24 +124,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     textAlign: 'center',
   },
-  searchBar: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    fontWeight: 'bold',
-    fontSize: 17,
-    borderRadius: 5,
-    borderWidth: 1,
-    width: 320,
-    marginRight: 15,
-    marginLeft: 10,
-    marginBottom: 20,
-    padding: 10,
-  },
-  searchIcon: {
-    height: 35,
-    width: 35,
-    flexDirection: 'row',
-  },
+
   bookContainer: {
     marginBottom: 20,
     marginLeft: 10,
@@ -163,7 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   searchBar: {
-    width: '90%',
+    width: 350,
     height: 40,
     borderRadius: 7,
     borderWidth: 1,
@@ -177,16 +161,15 @@ const styles = StyleSheet.create({
     paddingRight: 40
   },
   dropDownContainer: {
-    elevation: 20,
     height: 580,
     alignSelf: 'center',
-    width: '90%',
+    width: 350,
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 20,
   },
   dropDown: {
-    width: '93%',
+    width: 283,
     height: 40,
     alignSelf: 'center',
     borderWidth: 0,
