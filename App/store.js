@@ -9,14 +9,12 @@ import {
 } from 'react-native';
 import StoreBooks from './storeData';
 import { useState, useRef } from 'react';
+import { Feather } from '@expo/vector-icons';
 
-export default function StoreMain({ navigation }) {
+export default LibraryMain = ({ navigation }) => {
   const [search, setSearch] = useState('');
-  const [clicked, setClicked] = useState(false);
   const [data, setData] = useState(StoreBooks);
-  const [selectedBook, setSelectedBook] = useState('');
   const searchRef = useRef();
-
   const onSearch = search => {
     if (search !== '') {
       let tempData = data.filter(item => {
@@ -28,94 +26,73 @@ export default function StoreMain({ navigation }) {
     }
   };
 
-  const Book = ({ item }) => (
-    <TouchableOpacity
-      style={styles.bookContainer}
-      onPress={() => navigation.navigate('StoreBookDetail', { item })
-      }>
-      <Image source={{ uri: item.image }} style={styles.bookCover} />
-      <Text style={styles.bookTitle}>
-        {item.title}
-        <Text style={styles.bookAuthor}>
-          {'\nby '}
-          {item.author}
+  const Book = ({ item }) => {
+    return (
+      <TouchableOpacity
+        style={styles.bookContainer}
+        onPress={() => {
+          navigation.navigate('StoreBookDetail', { item });
+          onSearch('');
+          setSearch('');
+        }}>
+        <Image source={{ uri: item.image }} style={styles.bookCover} />
+        <Text style={styles.bookTitle}>
+          {item.title}
+          <Text style={styles.bookAuthor}>
+            {'\nby ' + item.author}
+          </Text>
+          <Text style={{fontSize:18, fontWeight: 'bold'}}>
+            {'\n$' + item.buy}
+          </Text>
         </Text>
-        <Text style={{ fontSize: 20 }}>{'\n$'}{item.buy}</Text>
-      </Text>
-    </TouchableOpacity>
-  );
-
+      </TouchableOpacity>
+    )
+  }
   return (
-    <View style={styles.container}>
-      <FlatList
-        ListHeaderComponent={
-          <>
-            <Text style={styles.header}>Store</Text>
-            <View style={{ flex: 1 }}>
+    <FlatList
+      style={{
+        backgroundColor: '#F5F5DC',
+      }}
+      ListHeaderComponent={
+        <View style={styles.container}>
+          <Text style={styles.header}>Your Books</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+            <TextInput
+              placeholder="Search.."
+              placeholderTextColor={'#807F80'}
+              value={search}
+              ref={searchRef}
+              onChangeText={txt => {
+                onSearch(txt);
+                setSearch(txt);
+              }}
+              style={styles.searchBar}
+            />
+            {search.length > 0 && (
               <TouchableOpacity
-                style={styles.searchBar}
                 onPress={() => {
-                  setClicked(!clicked);
-                }}>
-                <Text style={{ fontWeight: '600' }}>
-                  {selectedBook == '' ? 'Search book by title...' : selectedBook}
-                </Text>
+                  setSearch("")
+                  setData(StoreBooks);
+                }}
+                style={{ alignSelf: "center", marginLeft: 16, marginBottom: 7 }}
+              >
+                <Feather name='x-circle' size={30} />
               </TouchableOpacity>
-              {clicked ? (
-                <View style={styles.dropDownContainer}>
-                  <TextInput
-                    placeholder="Search.."
-                    placeholderTextColor={'#807F80'}
-                    value={search}
-                    ref={searchRef}
-                    onChangeText={txt => {
-                      onSearch(txt);
-                      setSearch(txt);
-                    }}
-                    style={styles.dropDown}
-                  />
-
-                  <FlatList
-                    data={data}
-                    renderItem={({ item }) => {
-                      return (
-                        <TouchableOpacity
-                          style={{
-                            width: '85%',
-                            alignSelf: 'center',
-                            height: 50,
-                            justifyContent: 'center',
-                            borderBottomWidth: 0.5,
-                            borderColor: '#8e8e8e',
-                          }}
-                          onPress={() => {
-                            navigation.navigate('StoreBookDetail', { item });
-                            setSelectedBook(item.title);
-                            setClicked(!clicked);
-                            onSearch('');
-                            setSearch('');
-                          }}>
-                          <Text style={{ fontWeight: '600' }}>{item.title}</Text>
-                        </TouchableOpacity>
-                      );
-                    }}
-                  />
-                </View>
-              ) : null}
-            </View>
-          </>
-        }
-        data={StoreBooks}
-        renderItem={Book}
-      />
-    </View>
+            )}
+          </View>
+        </View>
+      }
+      data={data}
+      renderItem={Book}
+    />
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: '#F5F5DC',
+    flex: 1,
   },
   header: {
     fontWeight: 'bold',
@@ -124,24 +101,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     textAlign: 'center',
   },
-  searchBar: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    fontWeight: 'bold',
-    fontSize: 17,
-    borderRadius: 5,
-    borderWidth: 1,
-    width: 320,
-    marginRight: 15,
-    marginLeft: 10,
-    marginBottom: 20,
-    padding: 10,
-  },
-  searchIcon: {
-    height: 35,
-    width: 35,
-    flexDirection: 'row',
-  },
+
   bookContainer: {
     marginBottom: 20,
     marginLeft: 10,
@@ -164,35 +124,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   searchBar: {
-    width: '90%',
+    width: '83%',
     height: 40,
-    borderRadius: 10,
-    borderWidth: 0.5,
     alignSelf: 'center',
-    marginTop: 5,
-    marginBottom: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingLeft: 15,
-  },
-  dropDownContainer: {
-    elevation: 20,
-    height: 640,
-    alignSelf: 'center',
-    width: '90%',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  dropDown: {
-    width: '90%',
-    height: 50,
-    alignSelf: 'center',
-    borderWidth: 0.2,
+    borderWidth: 1,
     borderColor: '#8e8e8e',
     borderRadius: 7,
     marginTop: 10,
     paddingLeft: 20,
+    marginBottom: 20,
+    fontSize: 18,
   }
 });

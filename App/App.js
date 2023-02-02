@@ -35,7 +35,7 @@ const storeIcon = () => {
 
 const MainNav = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName='Login'>
       <Tab.Screen
         name="Login"
         component={Login}

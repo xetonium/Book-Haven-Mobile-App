@@ -30,7 +30,6 @@ export default Home = ({ navigation }) => {
     </TouchableOpacity>
   );
 
-
   const onHandleLogout = async () => {
     Alert.alert(
       "Logout",
@@ -78,7 +77,7 @@ export default Home = ({ navigation }) => {
       </View>
 
       <Text style={styles.subHeader}>popular picks for you</Text>
-      <ScrollView horizontal={true} style={styles.bookContainer}>
+      <View style={styles.bookContainer}>
         <FlatList
           horizontal={true}
           data={storeBooks.slice(0, 3)}
@@ -95,7 +94,7 @@ export default Home = ({ navigation }) => {
             </>
           }
         />
-      </ScrollView>
+      </View>
       <TouchableOpacity onPress={onHandleLogout} style={styles.button}>
         <View style={styles.logoutContainer}>
           <Text style={styles.logoutText}>Logout</Text>

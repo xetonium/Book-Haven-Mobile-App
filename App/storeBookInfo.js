@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         paddingTop: 10,
         textAlign:'right',
+        fontWeight: 'bold',
     },
     information: {
         flexDirection: 'row',
