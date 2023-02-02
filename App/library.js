@@ -17,6 +17,7 @@ export default LibraryMain = ({ navigation }) => {
   const [clicked, setClicked] = useState(false);
   const [data, setData] = useState(LibraryBooks);
   const searchRef = useRef();
+  
   const onSearch = search => {
     if (search !== '') {
       let tempData = data.filter(item => {

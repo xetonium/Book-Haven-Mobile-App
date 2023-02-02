@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import StoreBooks from './storeData';
 import { useState, useRef } from 'react';
-import { AntDesign } from '@expo/vector-icons';
 
 export default function StoreMain({ navigation }) {
   const [search, setSearch] = useState('');
   const [clicked, setClicked] = useState(false);
   const [data, setData] = useState(StoreBooks);
+  const [selectedBook, setSelectedBook] = useState('');
   const searchRef = useRef();
 
   const onSearch = search => {
@@ -52,31 +52,29 @@ export default function StoreMain({ navigation }) {
           <>
             <Text style={styles.header}>Store</Text>
             <View style={{ flex: 1 }}>
-              <Text style={{ marginLeft: 20, fontSize: 20, }}>Search by title:</Text>
               <TouchableOpacity
                 style={styles.searchBar}
                 onPress={() => {
                   setClicked(!clicked);
                 }}>
-                {clicked ? (
-                  <View style={{ flexDirection: 'row' }}>
-                    <TextInput
-                      placeholder="Search..."
-                      placeholderTextColor={'#807F80'}
-                      value={search}
-                      ref={searchRef}
-                      onChangeText={txt => {
-                        onSearch(txt);
-                        setSearch(txt);
-                      }}
-                      style={styles.dropDown}
-                    />
-                    <AntDesign name="upcircleo" size={24} color="black" style={{ paddingTop: 8, paddingLeft: 6 }} />
-                  </View>
-                ) : null}
+                <Text style={{ fontWeight: '600' }}>
+                  {selectedBook == '' ? 'Search book by title...' : selectedBook}
+                </Text>
               </TouchableOpacity>
               {clicked ? (
                 <View style={styles.dropDownContainer}>
+                  <TextInput
+                    placeholder="Search.."
+                    placeholderTextColor={'#807F80'}
+                    value={search}
+                    ref={searchRef}
+                    onChangeText={txt => {
+                      onSearch(txt);
+                      setSearch(txt);
+                    }}
+                    style={styles.dropDown}
+                  />
+
                   <FlatList
                     data={data}
                     renderItem={({ item }) => {
@@ -92,7 +90,10 @@ export default function StoreMain({ navigation }) {
                           }}
                           onPress={() => {
                             navigation.navigate('StoreBookDetail', { item });
+                            setSelectedBook(item.title);
                             setClicked(!clicked);
+                            onSearch('');
+                            setSearch('');
                           }}>
                           <Text style={{ fontWeight: '600' }}>{item.title}</Text>
                         </TouchableOpacity>
@@ -165,20 +166,19 @@ const styles = StyleSheet.create({
   searchBar: {
     width: '90%',
     height: 40,
-    borderRadius: 7,
-    borderWidth: 1,
+    borderRadius: 10,
+    borderWidth: 0.5,
     alignSelf: 'center',
     marginTop: 5,
     marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: 0,
-    paddingRight: 40
+    paddingLeft: 15,
   },
   dropDownContainer: {
     elevation: 20,
-    height: 580,
+    height: 640,
     alignSelf: 'center',
     width: '90%',
     backgroundColor: '#fff',
@@ -186,12 +186,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   dropDown: {
-    width: '93%',
-    height: 40,
+    width: '90%',
+    height: 50,
     alignSelf: 'center',
-    borderWidth: 0,
+    borderWidth: 0.2,
     borderColor: '#8e8e8e',
-    paddingLeft: 15,
-    paddingBottom: 2,
+    borderRadius: 7,
+    marginTop: 10,
+    paddingLeft: 20,
   }
 });
