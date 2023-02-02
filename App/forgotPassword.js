@@ -106,13 +106,11 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 14,
     fontWeight: 'bold',
-    fontFamily: 'Trebuchet MS',
   },
 
   header: {
     fontSize: 50,
     fontWeight: 'bold',
-    fontFamily: 'Trebuchet MS',
     marginBottom: 100,
   },
 });
