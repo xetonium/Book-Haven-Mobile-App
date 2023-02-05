@@ -55,7 +55,7 @@ export default LibraryMain = ({ navigation }) => {
       }}
       ListHeaderComponent={
         <View style={styles.container}>
-          <Text style={styles.header}>Your Books</Text>
+          <Text style={styles.header}>Store</Text>
           <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
             <TextInput
               placeholder="Search.."
