@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import fireBaseApp from './firebase';
 const auth = fireBaseApp.auth();
+import CustomButton from './button'
 
 export default function Signup({ navigation }) {
 	const [email, setEmail] = useState('');
@@ -90,12 +91,20 @@ export default function Signup({ navigation }) {
 				<TouchableOpacity onPress={onHandleClear} style={styles.clearForm}>
 					<Text style={styles.clearText}>Clear</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.enterButton} onPress={onHandleSignUp}>
-					<Text style={styles.buttonText}>Sign up</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.cancelButton} onPress={onHandleCancel}>
-					<Text style={styles.buttonText}>Cancel</Text>
-				</TouchableOpacity>
+
+				<CustomButton 
+				containerStyle={styles.enterButton} 
+				buttonTextStyle={styles.buttonText} 
+				text={"Sign Up"} 
+				onPressHandler={onHandleSignUp} 
+				/>
+
+				<CustomButton 
+				containerStyle={styles.cancelButton} 
+				buttonTextStyle={styles.buttonText} 
+				text={"Cancel"} 
+				onPressHandler={onHandleCancel} 
+				/>
 			</View>
 		</View>
 	);

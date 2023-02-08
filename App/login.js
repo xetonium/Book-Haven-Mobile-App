@@ -11,11 +11,11 @@ import {
 const appIcon = require('./assets/appIcon.png');
 import fireBaseApp from './firebase';
 const auth = fireBaseApp.auth();
+import CustomButton from './button';
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const onHandleLogin = async () => {
         try {
             if (email == '' || password == '') {
@@ -42,7 +42,6 @@ export default function Login({ navigation }) {
             }
         });
     }, []);
-
     return (
         <View style={styles.container}>
             <Image style={styles.logo} source={appIcon} />
@@ -66,9 +65,14 @@ export default function Login({ navigation }) {
                     value={password}
                     onChangeText={(text) => setPassword(text)}
                 />
-                <TouchableOpacity style={styles.enterButton} onPress={onHandleLogin}>
-                    <Text style={styles.enterButtonText}> Login</Text>
-                </TouchableOpacity>
+
+                <CustomButton 
+                containerStyle={styles.enterButton} 
+                buttonTextStyle={styles.enterButtonText} 
+                text={"Login"} 
+                onPressHandler={onHandleLogin} 
+                />
+
                 <View style={styles.bottomNav}>
                     <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
                         <Text style={styles.bottomNavText}>Sign up</Text>
