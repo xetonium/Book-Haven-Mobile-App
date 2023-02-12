@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 
-//highlight version 8 vs version
+//highlight version 8 vs version 9
 
 const firebaseConfig = {
   apiKey: 'AIzaSyC3skOYrXJiYo9UT73D76MlVA_PIGEEWaw',
