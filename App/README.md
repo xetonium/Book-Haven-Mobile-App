@@ -4,10 +4,10 @@
 - Implementation of user authentication with Firebase Authentication.
 
 Install node_modules:\
-```npm install```\
+```npm install```
 
 Install expo client:\
-```npm install expo-cli --global```\
+```npm install expo-cli --global```
 
 To run the application, run the following command:\
-```npx expo start --tunnel```\
+```npx expo start --tunnel```
